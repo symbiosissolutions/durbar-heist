@@ -6,11 +6,11 @@ let socket;
 export default function Home() {
   const [play, setPlay] = useState(true);
   // const [message, setMessage] = useState("");
-  const [username, setUsername] = useState("");
-  const [allPlayers, setAllPlayers] = useState([]);
+  // const [username, setUsername] = useState("");
+  // const [allMessages, setAllMessages] = useState([]);
   // Create a state variable to store the lobby ID
   const [lobbyId, setLobbyId] = useState(" ");
-  const [lobbyState, setLobbyState] = useState("lol");
+  const [lobbyState, setLobbyState] = useState(null);
   const [newLobbyId, setNewLobbyId] = useState(" ");
 
   useEffect(() => {
@@ -37,13 +37,9 @@ export default function Home() {
       setLobbyState(lobbies);
       // Update the lobby state
     });
-    socket.on("lobbyDoesNotExist", () => {
-      setLobbyState("no lobby exist");
-      // Update the lobby state
-    });
-    socket.on("lobbyState", (data) => {
-      setAllPlayers((pre) => [...pre, data]);
-    });
+    // socket.on("receive-message", (data) => {
+    //   setAllMessages((pre) => [...pre, data]);
+    // });
 
     // Create a function to create a new lobby
 
@@ -92,8 +88,9 @@ export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("emitted : " + username, newLobbyId);
-    socket.emit("joinLobby", username, lobbyId);
+    socket.emit("joinLobby", newLobbyId);
+
+    setNewLobbyId("");
   };
   // function handleSubmit(e) {
   //   e.preventDefault();
@@ -240,10 +237,6 @@ export default function Home() {
       <div>
         <h1>Lobby {lobbyId}</h1>
 
-        {allPlayers.map(({ username }, index) => (
-          <div key={index}>{username}</div>
-        ))}
-
         <button onClick={createLobby}>Create Game</button>
       </div>
 
@@ -251,27 +244,22 @@ export default function Home() {
         <button onClick={startGame}>Start Game</button>
 
         <form onSubmit={handleSubmit}>
-          <div className=" flex ">
-            <span>lobby id : </span>
-            <input
-              name="newLobbyId"
-              placeholder="enter your message"
-              value={newLobbyId}
-              onChange={(e) => setNewLobbyId(e.target.value)}
-              autoComplete={"off"}
-            />
-          </div>
-          <br />
-          <div className=" flex ">
-            <span>username : </span>
-            <input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
+          <input
+            name="newLobbyId"
+            placeholder="enter your message"
+            value={newLobbyId}
+            onChange={(e) => setNewLobbyId(e.target.value)}
+            autoComplete={"off"}
+          />
 
           <button>submit</button>
         </form>
+
+        {lobbyState}
+      </div>
+
+      <div>
+        <button onClick={clearLobby}>Clear Game</button>
       </div>
     </div>
     // <div>
