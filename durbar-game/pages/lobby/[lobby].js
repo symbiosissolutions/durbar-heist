@@ -30,12 +30,13 @@ const lobby = () => {
 
     socket = io();
 
-    socket.emit("getLobby", lobbyId);
+    if (lobbyId) {
+      socket.emit("getLobby", lobbyId);
+    }
 
     socket.on("allLobbies", (allPlayers) => {
       setAllPlayers(allPlayers);
       // Update the lobby state
-      console.log(allPlayers);
     });
 
     // Create a function to create a new lobby
@@ -44,11 +45,12 @@ const lobby = () => {
     <div>
       lobby:
       {typeof allPlayers}
-      {/* {allPlayers?.map(({ username, image }, index) => (
+      {JSON.stringify(allPlayers)}
+      {allPlayers?.map((players, index) => (
         <div key={index}>
-          {username}: {image}
+          {players.username}: {players.image}
         </div>
-      ))} */}
+      ))}
     </div>
   );
 };
