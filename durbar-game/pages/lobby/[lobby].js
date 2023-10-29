@@ -23,7 +23,7 @@ const lobby = () => {
         socket.disconnect();
       }
     };
-  }, []);
+  }, [lobbyId]);
 
   async function socketInitializer() {
     await fetch("/api/socket");
@@ -35,6 +35,7 @@ const lobby = () => {
     }
 
     socket.on("allLobbies", (allPlayers) => {
+      console.log("haill" + allPlayers);
       setAllPlayers(allPlayers);
       // Update the lobby state
     });
