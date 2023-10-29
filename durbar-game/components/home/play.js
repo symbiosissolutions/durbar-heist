@@ -2,7 +2,7 @@ import React from "react";
 
 import { useEffect, useMemo, useState } from "react";
 import io from "socket.io-client";
-
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 let socket;
@@ -15,6 +15,7 @@ const play = () => {
   const [lobbyId, setLobbyId] = useState(" ");
   const [lobbyState, setLobbyState] = useState("lol");
   const [newLobbyId, setNewLobbyId] = useState(" ");
+  const router = useRouter();
 
   useEffect(() => {
     socketInitializer();
@@ -40,6 +41,16 @@ const play = () => {
       setLobbyState("no lobby exist");
       // Update the lobby state
     });
+    socket.on("lobbyExists", (lobbyId) => {
+      console.log("asdadasdasd" + lobbyId);
+      router.push({
+        pathname: `/enterLobby/${lobbyId}`,
+        query: {
+          lobbyId,
+        },
+      });
+      // Update the lobby state
+    });
 
     // Create a function to create a new lobby
 
@@ -60,12 +71,13 @@ const play = () => {
     });
   };
 
+  const enterLobby = () => {};
+
   // }
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log("emitted : " + username, newLobbyId);
-    socket.emit("joinLobby", username, lobbyId);
+    socket.emit("joinLobby", lobbyId);
+    // console.log(lobbyId);
   };
 
   return (
@@ -93,18 +105,23 @@ const play = () => {
             back
           </div>
           <div className=" flex flex-col w-full gap-y-4 justify-center items-center">
-            <div className=" w-full">
+            <form className=" w-full" onSubmit={handleSubmit}>
               <label className="block mb-2 text-lg font-medium text-[#614C41] font-knightWarrior tracking-widest">
                 Enter Lobby
               </label>
-              <input
-                type="email"
-                id="email"
-                className="border font-knightWarrior w-full tracking-widest bg-[#E5CCA5] text-[#614C41] border-[#614C41]  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-                placeholder="Lobby ID"
-                required
-              />
-            </div>
+              <div className=" flex">
+                <input
+                  type="number"
+                  id="number"
+                  onChange={(e) => setLobbyId(e.target.value)}
+                  autoComplete={"off"}
+                  className="border font-knightWarrior w-full tracking-widest bg-[#E5CCA5] text-[#614C41] border-[#614C41]  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                  placeholder="Lobby ID"
+                  required
+                />
+                <button type="submit">Go</button>
+              </div>
+            </form>
             <span className=" font-knightWarrior tracking-widest">or</span>
             <Link href="/createLobby">
               <button className="cursor-pointer  w-full text-[#614C41] border-[#614C41]">
