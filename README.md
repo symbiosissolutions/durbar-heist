@@ -29,7 +29,8 @@ To run the Durbar Defence game, follow these steps:
 5. Once the dependencies are installed, run the game using the following command:
  The game aims to teach players about prompting AI while engaging in strategic gameplay.
 
-`python durbar_defence_game.py`
+`cd deubar-game`
+`npm run dev`
 
 
 ## Game Rules
