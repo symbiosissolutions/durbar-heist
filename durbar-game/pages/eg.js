@@ -44,11 +44,11 @@
 //   <br />
 
 //   <div>
-//     {allMessages.map(({ username, message }, index) => (
-//       <div key={index}>
-//         {username}: {message}
-//       </div>
-//     ))}
+// {allMessages.map(({ username, message }, index) => (
+//   <div key={index}>
+//     {username}: {message}
+//   </div>
+// ))}
 
 //     <br />
 

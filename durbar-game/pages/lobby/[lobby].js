@@ -40,7 +40,17 @@ const lobby = () => {
 
     // Create a function to create a new lobby
   }
-  return <div>lobby {allPlayers}</div>;
+  return (
+    <div>
+      lobby:
+      {typeof allPlayers}
+      {/* {allPlayers?.map(({ username, image }, index) => (
+        <div key={index}>
+          {username}: {image}
+        </div>
+      ))} */}
+    </div>
+  );
 };
 
 export default lobby;

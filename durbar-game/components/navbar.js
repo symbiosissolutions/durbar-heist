@@ -2,8 +2,8 @@ import React from "react";
 
 const navbar = () => {
   return (
-    <nav className=" w-full flex justify-start items-center fixed ml-10 mt-5  z-10">
-      <div className=" flex gap-x-2">
+    <nav className=" w-full flex justify-start items-center sticky mt-5 pl-12   z-10">
+      <div className=" flex gap-x-2 ">
         <img
           src="/symbiosis/symbiosis-logo-b.png"
           alt="symbiosis logo"

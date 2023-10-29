@@ -22,13 +22,15 @@ export default function SocketHandler(req, res) {
 
   io.on("connection", (socket) => {
     // Create a new lobby when the user clicks the "Create Lobby" button
-    socket.on("createLobby", () => {
+    socket.on("createLobby", (username, currentImage) => {
       const lobbyId = Math.floor(Math.random() * 100000);
+      console.log(username, currentImage);
       console.log(lobbyId);
       lobbies[lobbyId] = {
-        players: [],
+        players: [{ username: username, image: currentImage }],
       };
       console.log("lobby created 1");
+      console.log(lobbies);
 
       // Send the lobby ID to the user
       socket.emit("lobbyCreated", lobbyId);

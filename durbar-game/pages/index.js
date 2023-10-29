@@ -6,9 +6,9 @@ import Background from "@/components/home/background";
 export default function Home() {
   // }
   return (
-    <main className=" bg-primary w-full h-full">
+    <main className="  overflow-hidden h-screen">
       <Navbar />
-      <div className=" flex justify-center items-center w-screen h-screen flex-col relative overflow-hidden ">
+      <div className=" flex justify-center items-center w-screen h-full flex-col relative ml-12 mr-12 -mt-24  ">
         <Hero />
         <Play />
         <Background />

@@ -2,12 +2,11 @@ import React from "react";
 
 import { useEffect, useMemo, useState } from "react";
 import io from "socket.io-client";
-import { useRouter } from "next/router";
+
+import Link from "next/link";
 
 let socket;
 const play = () => {
-  const router = useRouter();
-
   const [play, setPlay] = useState(true);
   // const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
@@ -33,16 +32,6 @@ const play = () => {
 
     socket = io();
 
-    socket.on("lobbyCreated", (lobbyId) => {
-      setLobbyId(lobbyId);
-      router.push({
-        pathname: `/lobby/${lobbyId}`,
-        query: {
-          lobbyId,
-        },
-      });
-    });
-
     socket.on("lobbyState", (lobbies) => {
       setLobbyState(lobbies);
       // Update the lobby state
@@ -56,12 +45,6 @@ const play = () => {
 
     console.log("a");
   }
-
-  const createLobby = useMemo(() => {
-    return () => {
-      socket.emit("createLobby");
-    };
-  }, [socket]);
 
   const clearLobby = useMemo(() => {
     return () => {
@@ -123,14 +106,13 @@ const play = () => {
               />
             </div>
             <span className=" font-knightWarrior tracking-widest">or</span>
-            <button className="cursor-pointer  w-full text-[#614C41] border-[#614C41]">
-              <span
-                className=" font-knightWarrior tracking-widest"
-                onClick={createLobby}
-              >
-                Create a Lobby
-              </span>
-            </button>
+            <Link href="/createLobby">
+              <button className="cursor-pointer  w-full text-[#614C41] border-[#614C41]">
+                <span className=" font-knightWarrior tracking-widest">
+                  Create a Lobby
+                </span>
+              </button>
+            </Link>
           </div>
         </div>
       )}

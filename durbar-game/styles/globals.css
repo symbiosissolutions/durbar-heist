@@ -30,3 +30,7 @@
 }
 
 @tailwind utilities;
+
+body {
+  background-color: #f7f7e7;
+}
