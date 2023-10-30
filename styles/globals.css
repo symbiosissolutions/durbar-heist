@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+
+@font-face {
+  font-family: "SourceCode";
+  src: local("SourceCode"),
+    url(../fonts/Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf)
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"),
+    url(../fonts/Montserrat/Montserrat-VariableFont_wght.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "KnightWarrior";
+  src: local("KnightWarrior"),
+    url(../fonts/KnightWarrior/KnightWarrior.otf) format("opentype");
+}
+
+@layer base {
+  .font-outline-2 {
+    -webkit-text-stroke: 2px black;
+  }
+  .font-outline-4 {
+    -webkit-text-stroke: 4px black;
+  }
+}
+
+@tailwind utilities;
+
+body {
+  background-color: #f7f7e7;
+}

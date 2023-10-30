@@ -1,6 +1,6 @@
-# Durbar Defence Game Documentation
+# Durbar Heist Game Documentation
 
-The Durbar Defence game is a prompt warfare game that aims to teach players the basics of prompting AI. In this game, multiple players participate in a sandbox map, each with their own Durbar (Palace) assigned a secret passphrase. The objective is to protect your Durbar's passphrase while attempting to loot other players' Durbars by guessing their passphrases. The game includes configurable time limits and a maximum number of attempts for guessing the passphrase.
+The Durbar Heist game is a prompt warfare game that aims to teach players the basics of prompting AI. In this game, multiple players participate in a sandbox map, each with their own Durbar (Palace) assigned a secret passphrase. The objective is to protect your Durbar's passphrase while attempting to loot other players' Durbars by guessing their passphrases. The game includes configurable time limits and a maximum number of attempts for guessing the passphrase.
 
 ## Table of Contents
 
@@ -13,23 +13,18 @@ The Durbar Defence game is a prompt warfare game that aims to teach players the 
 
 ## Game Overview
 
-The Durbar Defence game is a turn-based strategy game where players interact with AI homemaker robots named Guard. Each player has their own Durbar, which is assigned a secret passphrase. The Durbar contains a treasure room with a fixed amount of gold. Players can attempt to loot other players' Durbars by talking to their Guard and guessing the passphrase. If successful, they steal a fixed amount of gold from the opponent.
+The Durbar Heist game is a turn-based strategy game where players interact with AI homemaker robots named Guard. Each player has their own Durbar, which is assigned a secret passphrase. The Durbar contains a treasure room with a fixed amount of gold. Players can attempt to loot other players' Durbars by talking to their Guard and guessing the passphrase. If successful, they steal a fixed amount of gold from the opponent.
 
 ## Installation
 
-To run the Durbar Defence game, follow these steps:
+To run the Durbar Heist game, follow these steps:
 
-1. Install Python 3.x on your system.
+1. Install Docker and Docker-compose on your system.
 2. Download the game code from the provided source.
 3. Open a terminal or command prompt and navigate to the directory where the game code is located.
 4. Run the following command to install the required dependencies:
 
-`pip install -r requirements.txt`
-
-5. Once the dependencies are installed, run the game using the following command:
- The game aims to teach players about prompting AI while engaging in strategic gameplay.
-
-`python durbar_defence_game.py`
+`docker-compose up --build -d`
 
 
 ## Game Rules
