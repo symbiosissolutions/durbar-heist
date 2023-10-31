@@ -1,4 +1,6 @@
 // schema.prisma
+// https://vercel.com/guides/nextjs-prisma-postgres
+// Migration command: npx prisma db push
 
 generator client {
     provider = "prisma-client-js"
@@ -12,20 +14,23 @@ datasource db {
 
 // User model
 model User {
-    id Int @id @default(autoincrement())
+    id     Int @id @default(autoincrement())
+    gameId Int @unique // Foreign key to Game model
 
+    game      Game      @relation(fields: [gameId], references: [id])
     durbar    Durbar?
-    gameAdmin Game?
+    adminGame Game?     @relation("AdminUser")
     feedback  Feedback?
 }
 
 // Durbar model
 model Durbar {
-    id         Int    @id @default(autoincrement())
-    name       String
-    passphrase String
-    treasure   Int
-    ownerId    Int    @unique // Foreign key to User model
+    id           Int    @id @default(autoincrement())
+    name         String
+    profileImage String // Prisma does not support image type https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference
+    passphrase   String
+    treasure     Int
+    ownerId      Int    @unique // Foreign key to User model
 
     // Relationship with User model
     owner           User                @relation(fields: [ownerId], references: [id])
@@ -51,7 +56,7 @@ model Heist {
     id                Int       @id @default(autoincrement())
     initiatorDurbarId Int // Foreign key to Durbar model
     targetDurbarId    Int // Foreign key to Durbar model
-    startTime         DateTime  @default(now())
+    startTime         DateTime?
     endTime           DateTime?
     attempts          Int
     successful        Boolean
@@ -59,6 +64,9 @@ model Heist {
     // Relationship with Durbar model
     initiatorDurbar Durbar @relation("InitiatorDurbar", fields: [initiatorDurbarId], references: [id])
     targetDurbar    Durbar @relation("TargetDurbar", fields: [targetDurbarId], references: [id])
+
+    // Relationship with Loot model
+    Loot Loot?
 }
 
 // Loot model
@@ -68,6 +76,10 @@ model Loot {
     targetDurbarId    Int // Foreign key to Durbar model
     amount            Int
     timestamp         DateTime @default(now())
+    heistId           Int      @unique // Foreign key to Heist model
+
+    // Relationship with Heist model
+    heist Heist @relation(fields: [heistId], references: [id])
 
     // Relationship with Durbar model
     looterDurbar Durbar @relation("LooterDurbar", fields: [initiatorDurbarId], references: [id])
@@ -76,19 +88,22 @@ model Loot {
 
 // Game model
 model Game {
-    id                              Int       @id @default(autoincrement())
-    adminId                         Int       @unique // Foreign key to User model
-    startTime                       DateTime  @default(now())
-    endTime                         DateTime?
-    duration                        Int
-    maxAttemptPerLoot               Int
-    maxLootDuration                 Int
-    waitDurationAfterSuccessfulLoot Int
-    initialTreasureGold             Int
-    constantLootValue               Int
+    id                    Int       @id @default(autoincrement())
+    adminId               Int       @unique // Foreign key to User model
+    inviteCode            String    @unique
+    createdTime           DateTime  @default(now())
+    startTime             DateTime?
+    endTime               DateTime?
+    duration              Int
+    maxAttemptPerHeist    Int
+    maxHeistDuration      Int
+    initialTreasure       Int
+    lootValue             Int
+    instructionUpdateCost Int
 
     // Relationship with User model
-    admin User @relation(fields: [adminId], references: [id])
+    admin   User   @relation("AdminUser", fields: [adminId], references: [id])
+    players User[]
 }
 
 // Feedback model
