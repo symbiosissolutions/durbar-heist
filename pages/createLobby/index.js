@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
 import io from "socket.io-client";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 let socket;
 
@@ -69,10 +70,16 @@ const index = () => {
             <label className="block mb-4 text-lg font-medium text-[#614C41] font-knightWarrior tracking-widest ">
               Choose your Face
             </label>
-            <div
-              style={{ backgroundImage: `url(${slides[currentImage].url})` }}
-              className="w-full h-full  bg-center bg-cover duration-500  bg-secondary border border-secondary rounded-lg shadow-lg"
-            ></div>
+            <div className="w-full h-full  bg-center bg-cover duration-500  bg-secondary border border-secondary rounded-lg shadow-lg relative">
+              <Image
+                src={slides[currentImage].url}
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="100%"
+                priority
+                alt="Durbar Image"
+              />
+            </div>
 
             {/* Left Arrow */}
             <div className="hidden group-hover:block absolute top-[60%] -translate-x-0 translate-y-[-50%]  -left-6 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
@@ -99,7 +106,6 @@ const index = () => {
                 placeholder="name"
                 required
               />
-              {username}
             </div>
 
             <button

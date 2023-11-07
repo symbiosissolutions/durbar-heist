@@ -15,7 +15,6 @@ export default function SocketHandler(req, res) {
   const lobbies = {};
 
   io.on("connection", (socket) => {
-
     // Create a new lobby when the user clicks the "Create Lobby" button
     socket.on("createLobby", (username, currentImage) => {
       const lobbyId = Math.floor(Math.random() * 100000);
@@ -37,7 +36,7 @@ export default function SocketHandler(req, res) {
       // Add the user to the lobby
       lobbies[lobbyId].players.push({ username: username, image: image });
 
-      socket.emit("lobbyState", lobbyId);
+      io.to(lobbyId).emit("allLobbies", lobbies[lobbyId].players);
     });
 
     // When you first click on the enter lobby button. Before character choose
@@ -64,7 +63,7 @@ export default function SocketHandler(req, res) {
     // Start the game when the lobby is full
     socket.on("startGame", () => {
       const lobby = lobbies[socket.lobbyId];
-4      // Start the game for all players in the lobby
+      4; // Start the game for all players in the lobby
       // for (const player of lobby.players) {
       //   player.emit("startGame");
       // }
@@ -75,7 +74,6 @@ export default function SocketHandler(req, res) {
       if (!lobby) {
         return;
       }
-
       lobby.players.splice(lobby.players.indexOf(username), 1);
     });
 
