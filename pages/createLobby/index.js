@@ -41,7 +41,6 @@ const index = () => {
   };
 
   const createLobby = () => {
-    console.log(username);
     socket.emit("createLobby", username, currentImage);
   };
 

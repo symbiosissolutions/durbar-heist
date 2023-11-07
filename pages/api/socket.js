@@ -36,6 +36,7 @@ export default function SocketHandler(req, res) {
       // Add the user to the lobby
       lobbies[lobbyId].players.push({ username: username, image: image });
 
+      socket.emit("lobbyState", lobbyId);
       io.to(lobbyId).emit("allLobbies", lobbies[lobbyId].players);
     });
 

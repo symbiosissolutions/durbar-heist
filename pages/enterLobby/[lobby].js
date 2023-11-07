@@ -13,8 +13,6 @@ const lobby = () => {
     query: { lobbyId },
   } = router;
 
-  console.log(lobbyId);
-
   var slides = [];
   for (let index = 1; index < 24; index++) {
     slides = [...slides, { url: `/durbar/${index}.jpg` }];
