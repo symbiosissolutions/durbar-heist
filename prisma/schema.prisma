@@ -9,11 +9,11 @@ datasource db {
 
 model User {
   id        Int       @id @default(autoincrement())
-  gameId    Int       @unique
+  gameId    Int?      @unique
   durbar    Durbar?
   feedback  Feedback?
   adminGame Game?     @relation("AdminUser")
-  game      Game      @relation(fields: [gameId], references: [id])
+  game      Game?     @relation(fields: [gameId], references: [id])
 }
 
 model Durbar {
