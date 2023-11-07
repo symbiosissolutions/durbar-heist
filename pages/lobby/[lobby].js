@@ -9,7 +9,7 @@ let socket;
 const lobby = () => {
   const [allPlayers, setAllPlayers] = useState();
   const [lobbyState, setLobbyState] = useState("lol");
-  const [updatePlayer, setuUdatePlayer] = useState(" ");
+  const [updatePlayer, setUdatePlayer] = useState(" ");
 
   const router = useRouter();
   const {
