@@ -29,8 +29,6 @@ const input = ({ label, icon, placeholder, onChange, type }) => {
           type={type ? type : "search"}
           x-model="input1"
           className="w-full h-12 px-4 py-1 rounded-r-md border border-gray-100 text-gray-800 focus:outline-none font-knightWarrior tracking-widest"
-          font-knightWarrior
-          tracking-widest
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
         />

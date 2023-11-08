@@ -7,7 +7,7 @@ const imageCard = ({ src }) => {
       <Image
         src={src}
         fill
-        style={{ objectFit: "cover", borderRadius: " 0.5rem" }}
+        style={{ objectFit: "cover", borderRadius: " 0.4rem" }}
         sizes="100%"
         priority
         alt="Durbar Image"
