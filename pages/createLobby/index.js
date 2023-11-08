@@ -2,19 +2,37 @@ import React, { useEffect, useMemo, useState } from "react";
 import Navbar from "@/components/navbar";
 import io from "socket.io-client";
 import { useRouter } from "next/router";
+import Input from "@/components/UI/input";
+import Button from "@/components/UI/button";
 
 let socket;
 
 const index = () => {
-  const [username, setUsername] = useState(" ");
-  const [currentImage, setCurrentImage] = useState(0);
-  const [lobbyId, setLobbyId] = useState(" ");
   const router = useRouter();
+  const [duration, setDuration] = useState("");
+  const [maxAttempt, setMaxAttempt] = useState("");
+  const [maxHeist, setMaxHeist] = useState("");
+  const [initialTreasure, setInitialTreasure] = useState("");
+  const [lootValue, setLootValue] = useState("");
 
-  var slides = [];
-  for (let index = 1; index < 24; index++) {
-    slides = [...slides, { url: `/durbar/${index}.jpg` }];
-  }
+  const handleDurationChange = (newValue) => {
+    setDuration(newValue);
+  };
+  const handleMaxAttemptChange = (newValue) => {
+    setMaxAttempt(newValue);
+  };
+
+  const handleMaxHeistChange = (newValue) => {
+    setMaxHeist(newValue);
+  };
+
+  const handleInitialTreasureChange = (newValue) => {
+    setInitialTreasure(newValue);
+  };
+
+  const handleLootValueChange = (newValue) => {
+    setLootValue(newValue);
+  };
 
   useEffect(() => {
     socketInitializer();
@@ -26,18 +44,6 @@ const index = () => {
       }
     };
   }, []);
-
-  const prevSlide = () => {
-    const isFirstSlide = currentImage === 0;
-    const newIndex = isFirstSlide ? slides.length - 1 : currentImage - 1;
-    setCurrentImage(newIndex);
-  };
-
-  const nextSlide = () => {
-    const isLastSlide = currentImage === slides.length - 1;
-    const newIndex = isLastSlide ? 0 : currentImage + 1;
-    setCurrentImage(newIndex);
-  };
 
   const createLobby = () => {
     console.log(username);
@@ -63,54 +69,136 @@ const index = () => {
     <>
       <main className=" h-full w-full">
         <Navbar />
-
-        <div className=" flex w-full h-[80vh] justify-center items-center flex-row relative px-20 gap-x-10">
-          <div className="flex-[2] w-[30%] h-[90%] relative mt-60 md:mt-8 group">
-            <label className="block mb-4 text-lg font-medium text-[#614C41] font-knightWarrior tracking-widest ">
-              Choose your Face
-            </label>
-            <div
-              style={{ backgroundImage: `url(${slides[currentImage].url})` }}
-              className="w-full h-full  bg-center bg-cover duration-500  bg-secondary border border-secondary rounded-lg shadow-lg"
-            ></div>
-
-            {/* Left Arrow */}
-            <div className="hidden group-hover:block absolute top-[60%] -translate-x-0 translate-y-[-50%]  -left-6 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-              <button onClick={prevSlide}>left </button>
-            </div>
-            {/* Right Arrow */}
-            <div className="hidden group-hover:block absolute top-[60%] -translate-x-0 translate-y-[-50%] -right-6 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-              <button onClick={nextSlide} size={30}>
-                right
-              </button>
-            </div>
-          </div>
-          <div className=" flex-[2]"></div>
-          <div className=" flex-[2] flex  flex-col gap-y-8">
-            <div className=" flex flex-col justify-center items-center mt-20 w-[99%]">
-              <label className="block mb-4 text-lg font-medium text-[#614C41] font-knightWarrior tracking-widest">
-                Enter the name for your Durbar
-              </label>
-              <input
-                type="username"
-                id="username"
-                onChange={(e) => setUsername(e.target.value)}
-                className="border font-knightWarrior w-full tracking-widest bg-[#E5CCA5] text-[#614C41] border-[#614C41]  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-                placeholder="name"
-                required
-              />
-              {username}
-            </div>
-
-            <button
-              onClick={createLobby}
-              className=" rounded px-5 py-2.5 overflow-hidden group bg-[#2A6F8D] relative hover:bg-gradient-to-r hover:from-[#2A6F8D] hover:to-[#579796] text-slate-200 hover:ring-2 hover:ring-offset-2 hover[#2A6F8D] transition-all ease-out duration-300"
-            >
-              <span className="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-32 bg-white opacity-10 rotate-12 group-hover:-translate-x-96 ease"></span>
-              <span className="relative font-knightWarrior tracking-[0.2rem]">
-                Create Lobby
+        <div className="w-full px-12 mt-12">
+          <div className=" flex divide-x-2 gap-x-4 ml-10">
+            <div className=" flex-[1.3] flex flex-col gap-y-8 ">
+              <span className="block mb-12 text-5xl  text-[rgb(97,76,65)] font-knightWarrior tracking-widest">
+                Create Game
               </span>
-            </button>
+              <form className=" flex  flex-wrap flex-grow gap-x-10 gap-y-10">
+                <Input
+                  label="Duration"
+                  placeholder="30"
+                  type="number"
+                  onChange={handleDurationChange}
+                />
+                <Input
+                  label="Max Attempt Per Heist"
+                  placeholder="None"
+                  onChange={handleMaxAttemptChange}
+                />
+                <Input
+                  label="Max Heist Duration"
+                  placeholder="None"
+                  onChange={handleMaxHeistChange}
+                />
+                <Input
+                  label="Initial Treasure"
+                  placeholder="1000"
+                  onChange={handleInitialTreasureChange}
+                />
+                <Input
+                  label="Loot Value"
+                  placeholder="60"
+                  onChange={handleLootValueChange}
+                />
+              </form>
+              <div className=" mt-10">
+                <Button
+                  text="Create Game"
+                  font="knightWarrior"
+                  tracking={true}
+                />
+              </div>
+            </div>
+            <div className=" flex-[2]">
+              <div className="w-full ">
+                <div className=" flex divide-x-2 gap-x-4 ml-14 mr-10">
+                  <div className=" flex-[1.3] flex flex-col gap-y-8 ">
+                    <div className=" flex justify-between items-end ">
+                      <span className="block mb-12 text-5xl  text-[rgb(97,76,65)] font-knightWarrior tracking-widest">
+                        Game Lobby
+                      </span>
+                      <span className="block mb-12 text-2xl  text-[rgb(97,76,65)] font-knightWarrior tracking-widest">
+                        Lobby ID: {}
+                      </span>
+                    </div>
+                    <table class="text-left w-full">
+                      <thead class="bg-black flex text-white w-full">
+                        <tr class="flex w-full mb-4">
+                          <th class="p-4 w-1/4">One</th>
+                          <th class="p-4 w-1/4">Two</th>
+                          <th class="p-4 w-1/4">Three</th>
+                          <th class="p-4 w-1/4">Four</th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full  h-[40vh]">
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>{" "}
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>{" "}
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>{" "}
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>
+                        <tr class="flex w-full mb-4">
+                          <td class="p-4 w-1/4">Dogs</td>
+                          <td class="p-4 w-1/4">Cats</td>
+                          <td class="p-4 w-1/4">Birds</td>
+                          <td class="p-4 w-1/4">Fish</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>
