@@ -2,8 +2,8 @@ import React from "react";
 
 const input = ({ label, icon, placeholder, onChange, type }) => {
   return (
-    <div className=" flex flex-col gap-y-2 ">
-      <label className="block text-lg  text-[#614C41] font-knightWarrior tracking-widest">
+    <div className=" flex flex-col gap-y-2  ">
+      <label className="block text-base  text-[#614C41] font-knightWarrior tracking-widest">
         {label}
       </label>
       <div className="     border-[2px]  flex  rounded-md shadow-md">
