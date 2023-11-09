@@ -71,7 +71,7 @@ const index = () => {
     // note: we are adding a key prop here to allow react to uniquely identify each
     // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
     rows.push(
-      <tr className="flex w-full ">
+      <tr className="flex w-full " key={i}>
         <td className="p-4 w-4/5 flex  justify-start items-center  rounded-lg rounded-r-none my-2  ">
           Username Test
         </td>
