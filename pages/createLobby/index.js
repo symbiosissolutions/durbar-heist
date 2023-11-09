@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
 import io from "socket.io-client";
 import { useRouter } from "next/router";
@@ -46,7 +46,6 @@ const index = () => {
   }, []);
 
   const createLobby = () => {
-    console.log(username);
     socket.emit("createLobby", username, currentImage);
   };
 
@@ -153,7 +152,7 @@ const index = () => {
                         Game Lobby
                       </span>
                       <span className="block mb-3 md:text-xl  text-sm text-[rgb(97,76,65)] font-knightWarrior tracking-widest">
-                        Lobby ID: 123456 {}
+                        Lobby ID: 123456 { }
                       </span>
                     </div>
                     <table className="text-left w-full text-xs ">
