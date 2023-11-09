@@ -104,26 +104,31 @@ const index = () => {
                   label="Duration"
                   placeholder="30"
                   type="number"
+                  icon="duration"
                   onChange={handleDurationChange}
                 />
                 <Input
                   label="Max Attempt Per Heist"
                   placeholder="None"
+                  icon="maxAttempt"
                   onChange={handleMaxAttemptChange}
                 />
                 <Input
                   label="Max Heist Duration"
                   placeholder="None"
+                  icon="maxDuration"
                   onChange={handleMaxHeistChange}
                 />
                 <Input
                   label="Initial Treasure"
                   placeholder="1000"
+                  icon="coin"
                   onChange={handleInitialTreasureChange}
                 />
                 <Input
                   label="Loot Value"
                   placeholder="60"
+                  icon="lootValue"
                   onChange={handleLootValueChange}
                 />
               </form>

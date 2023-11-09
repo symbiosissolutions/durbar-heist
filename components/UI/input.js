@@ -8,18 +8,11 @@ const input = ({ label, icon, placeholder, onChange, type }) => {
       </label>
       <div className="     border-[2px]  flex  rounded-md shadow-md">
         <div className="flex items-center bg-gray-100 rounded-l-md border border-white justify-center w-12 h-12 text-white ">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-900"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-              clipRule="evenodd"
-            />
-          </svg>
+          <img
+            src={"icons/game/" + icon + ".svg"}
+            alt={icon}
+            className=" w-5 h-5"
+          />
         </div>
 
         <input
