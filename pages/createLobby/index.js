@@ -75,7 +75,17 @@ const index = () => {
         <td className="p-4 w-4/5 flex  justify-start items-center  rounded-lg rounded-r-none my-2  ">
           Username Test
         </td>
-        <td className="p-4 w-1/5 rounded-lg rounded-l-none my-2 ">Ready</td>
+        <td className="p-4 w-1/5 rounded-lg rounded-l-none my-2 ">
+          <div className=" flex justify-center items-center gap-x-2">
+            <span className=" border  border-green-500 rounded-full">
+              <div className=" w-2 h-2 bg-green-500 rounded-full m-[0.1rem] " />
+            </span>
+            <span className=" border  border-red-700 rounded-full">
+              <div className=" w-2 h-2 bg-red-700 rounded-full m-[0.1rem] " />
+            </span>
+            Ready
+          </div>
+        </td>
       </tr>
     );
   }
@@ -148,7 +158,7 @@ const index = () => {
                         {rows}
                       </tbody>
                     </table>
-                    <div className=" mt-10">
+                    <div className=" mt-10 flex justify-end ">
                       <Button
                         text="Start Game"
                         font="knightWarrior"

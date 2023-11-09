@@ -7,10 +7,7 @@ const input = ({ label, icon, placeholder, onChange, type }) => {
         {label}
       </label>
       <div className="     border-[2px]  flex  rounded-md shadow-md">
-        <button
-          type=" submit"
-          className="flex items-center bg-gray-100 rounded-l-md border border-white justify-center w-12 h-12 text-white "
-        >
+        <div className="flex items-center bg-gray-100 rounded-l-md border border-white justify-center w-12 h-12 text-white ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-900"
@@ -23,7 +20,7 @@ const input = ({ label, icon, placeholder, onChange, type }) => {
               clipRule="evenodd"
             />
           </svg>
-        </button>
+        </div>
 
         <input
           type={type ? type : "search"}
