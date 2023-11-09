@@ -71,7 +71,7 @@ const index = () => {
     // note: we are adding a key prop here to allow react to uniquely identify each
     // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
     rows.push(
-      <tr className="flex w-full " key={i}>
+      <tr className="flex w-full  " key={i}>
         <td className="p-4 w-4/5 flex  justify-start items-center  rounded-lg rounded-r-none my-2  ">
           Username Test
         </td>
@@ -157,13 +157,13 @@ const index = () => {
                       </span>
                     </div>
                     <table className="text-left w-full text-xs ">
-                      <thead className="bg-[#579796] flex text-white w-full rounded-lg">
+                      <thead className="bg-[#579796] flex text-white w-full rounded-lg  shadow-md">
                         <tr className="flex w-full my-2">
                           <th className="p-4 w-4/5 ">Durbar Name</th>
                           <th className="p-4 w-1/5 ">Status</th>
                         </tr>
                       </thead>
-                      <tbody className=" bg-[#579796] text-white rounded-lg flex flex-col items-center justify-between overflow-y-scroll no-scroll-bar w-full mt-1 lg:h-[60vh]  xl:h-[40vh]">
+                      <tbody className=" bg-[#579796] text-white  shadow-md rounded-lg flex flex-col items-center justify-between overflow-y-scroll no-scroll-bar w-full mt-1 lg:h-[60vh]  xl:h-[40vh]">
                         {rows}
                       </tbody>
                     </table>
