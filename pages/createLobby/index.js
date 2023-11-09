@@ -80,9 +80,9 @@ const index = () => {
             <span className=" border  border-green-500 rounded-full">
               <div className=" w-2 h-2 bg-green-500 rounded-full m-[0.1rem] " />
             </span>
-            <span className=" border  border-red-700 rounded-full">
+            {/* <span className=" border  border-red-700 rounded-full">
               <div className=" w-2 h-2 bg-red-700 rounded-full m-[0.1rem] " />
-            </span>
+            </span> */}
             Ready
           </div>
         </td>
