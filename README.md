@@ -15,17 +15,41 @@ The Durbar Heist game is a prompt warfare game that aims to teach players the ba
 
 The Durbar Heist game is a turn-based strategy game where players interact with AI homemaker robots named Guard. Each player has their own Durbar, which is assigned a secret passphrase. The Durbar contains a treasure room with a fixed amount of gold. Players can attempt to loot other players' Durbars by talking to their Guard and guessing the passphrase. If successful, they steal a fixed amount of gold from the opponent.
 
-## Installation
+## Development
 
 To run the Durbar Heist game, follow these steps:
 
 1. Install Docker and Docker-compose on your system.
 2. Download the game code from the provided source.
 3. Open a terminal or command prompt and navigate to the directory where the game code is located.
-4. Run the following command to install the required dependencies:
+4. Create a `.env` file with contents similar to that in the provided `.env.example` file.
+5. For development purposes, you should use the `docker-compose-dev.yaml` file instead:
 
-`docker-compose up --build -d`
+    ```docker-compose -f docker-compose-dev.yaml up --build -d```
 
+    This will start a local instance of postgres database along with the game server.
+
+    To stop the game, execute the following command:
+
+    ```docker-compose -f docker-compose-dev.yaml down```
+
+### Running shell commands inside docker container
+
+Sometimes you may need to run shell commands inside the docker container. To do so, execute the following command:
+
+To create migrations from your Prisma schema, apply them to the database and then generate artifacts (e.g. Prisma Client):
+
+```docker-compose -f docker-compose-dev.yaml run --rm nextjs npx prisma migrate dev```
+
+To just generate the prisma client, execute the following command:
+
+```docker-compose -f docker-compose-dev.yaml run --rm nextjs npx prisma generate```
+
+### Viewing logs
+
+To view the logs of the game server, execute the following command:
+
+```docker-compose -f docker-compose-dev.yaml logs -f nextjs```
 
 ## Game Rules
 
