@@ -152,7 +152,7 @@ const index = () => {
                         Game Lobby
                       </span>
                       <span className="block mb-3 md:text-xl  text-sm text-[rgb(97,76,65)] font-knightWarrior tracking-widest">
-                        Lobby ID: 123456 { }
+                        Lobby ID: 123456 {}
                       </span>
                     </div>
                     <table className="text-left w-full text-xs ">

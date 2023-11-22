@@ -1,4 +1,5 @@
-version: '3'
+version: "3"
+
 services:
   nextjs:
     build:
@@ -8,14 +9,14 @@ services:
       - ./:/app
       - /app/node_modules
     environment:
-        NODE_ENV: development
-        DATABASE_URL: ${DATABASE_URL}
+      NODE_ENV: development
+      DATABASE_URL: ${DATABASE_URL}
     restart: always
     ports:
       - "3000:3000"
     networks:
       - durbar-app
-  
+
   postgres:
     image: postgres:latest
     volumes:
