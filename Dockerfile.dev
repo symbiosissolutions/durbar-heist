@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json /app/
 
 # Install any needed packages specified in package.json
-RUN npm install --unsafe-perm
+RUN npm install --unsafe-perm=true --allow-root prisma
 
 # Copy the current directory contents into the container at /app
 COPY . /app
@@ -21,6 +21,9 @@ RUN npx prisma generate
 
 # Change ownership of .next directory
 RUN chown -R node:node /app/.next
+
+# Change ownership and permissions of /app/node_modules/prisma
+RUN chown -R node:node /app/node_modules/prisma
 
 # Make port 3000 available to the world outside this container
 EXPOSE 3000

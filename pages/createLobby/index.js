@@ -5,25 +5,23 @@ import { useRouter } from "next/router";
 import Input from "@/components/UI/input";
 import Button from "@/components/UI/button";
 
+import { PrismaClient } from "@prisma/client";
+
 let socket;
 
 const index = () => {
+  const prisma = new PrismaClient();
   const router = useRouter();
-  const [duration, setDuration] = useState("");
-  const [maxAttempt, setMaxAttempt] = useState("");
-  const [maxHeist, setMaxHeist] = useState("");
-  const [initialTreasure, setInitialTreasure] = useState("");
-  const [lootValue, setLootValue] = useState("");
+  const [duration, setDuration] = useState("30");
+  const [hintCost, setHintCost] = useState("25");
+  const [initialTreasure, setInitialTreasure] = useState("1000");
+  const [lootValue, setLootValue] = useState("100");
 
   const handleDurationChange = (newValue) => {
     setDuration(newValue);
   };
-  const handleMaxAttemptChange = (newValue) => {
-    setMaxAttempt(newValue);
-  };
-
-  const handleMaxHeistChange = (newValue) => {
-    setMaxHeist(newValue);
+  const handleHintCost = (newValue) => {
+    setHintCost(newValue);
   };
 
   const handleInitialTreasureChange = (newValue) => {
@@ -45,8 +43,39 @@ const index = () => {
     };
   }, []);
 
-  const createLobby = () => {
-    socket.emit("createLobby", username, currentImage);
+  const createLobby = async () => {
+    try {
+      // Save data to the database using Prisma
+      const createdLobby = await prisma.game.create({
+        data: {
+          duration: parseInt(duration),
+          hintCost: parseInt(hintCost),
+          initialTreasure: parseInt(initialTreasure),
+          lootValue: parseInt(lootValue),
+          // Add other properties as needed
+        },
+      });
+
+      // Invalidate the SWR cache to trigger a re-fetch
+      mutate("/api/lobby");
+
+      // Access the ID of the created lobby if needed
+      const lobbyId = createdLobby.id;
+
+      // Emit the event to notify the server about the lobby creation
+      socket.emit("createLobby", { lobbyId });
+
+      // Redirect the user to the lobby page
+      router.push({
+        pathname: `/lobby/${lobbyId}`,
+        query: {
+          lobbyId,
+        },
+      });
+    } catch (error) {
+      console.error("Error creating lobby:", error);
+      // Handle error appropriately
+    }
   };
 
   async function socketInitializer() {
@@ -108,18 +137,18 @@ const index = () => {
                     onChange={handleDurationChange}
                   />
                   <Input
-                    label="Max Attempt Per Heist"
-                    placeholder="None"
-                    icon="maxAttempt"
-                    onChange={handleMaxAttemptChange}
+                    label="Loot Value"
+                    placeholder="60"
+                    icon="lootValue"
+                    onChange={handleLootValueChange}
                   />
                 </div>
                 <div className=" flex justify-between flex-col gap-y-10 sm:flex-row items-center gap-x-5 w-full">
                   <Input
-                    label="Max Heist Duration"
+                    label="Hint Cost"
                     placeholder="None"
                     icon="maxDuration"
-                    onChange={handleMaxHeistChange}
+                    onChange={handleHintCost}
                   />
                   <Input
                     label="Initial Treasure"
@@ -128,12 +157,6 @@ const index = () => {
                     onChange={handleInitialTreasureChange}
                   />
                 </div>
-                <Input
-                  label="Loot Value"
-                  placeholder="60"
-                  icon="lootValue"
-                  onChange={handleLootValueChange}
-                />
               </form>
               <div className=" mt-10">
                 <Button
