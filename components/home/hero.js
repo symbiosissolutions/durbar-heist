@@ -4,7 +4,7 @@ const hero = () => {
   return (
     <div>
       <h1 className=" text-[10rem] font-outline-2 font-knightWarrior tracking-wider font-medium group ">
-        <div className=" flex justify-center items-center w-full">
+        <div className=" flex justify-center items-center w-full cursor-pointer">
           <span className=" text-[#E5CCA5] group-hover:-rotate-2  transition-all duration-500">
             D
           </span>

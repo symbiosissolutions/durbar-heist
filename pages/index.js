@@ -4,7 +4,6 @@ import Play from "@/components/home/play";
 import Background from "@/components/home/background";
 
 export default function Home() {
-  // }
   return (
     <main className="  overflow-hidden h-screen">
       <Navbar />

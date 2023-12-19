@@ -23,13 +23,8 @@ USER node
 # Generate prisma client
 RUN npx prisma generate
 
-RUN chmod +x /app/entrypoint.sh
-
 # Make port 3000 available to the world outside this container
 EXPOSE 3000
-
-# Set the entrypoint script as the command to run
-ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Run the app when the container launches
 CMD ["npm", "start"]

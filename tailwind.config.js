@@ -11,6 +11,7 @@ module.exports = {
         primary: "#F7F7E7",
         secondary: "#141414",
         accent: "#C8102E",
+        input: "#E5CCA5",
       },
       fontFamily: {
         sourceCode: ["SourceCode"],
